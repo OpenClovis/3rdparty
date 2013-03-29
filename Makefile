@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 ifndef _VERSION
-    version := 1.24
+    version := 1.25
 else
     version := $(_VERSION)
 endif
@@ -10,10 +10,17 @@ ifndef _ARCH
     ARCH := $(shell arch)
 endif
 
+ifeq ($(ARCH), x86_64)
+    _ARCH := 64
+else
+    _ARCH := 32
+endif
+
 ALLPKGS = $(sort $(wildcard *.zip) $(wildcard *.tgz) $(wildcard *.tar.gz) $(wildcard *.gz))
 
-ARCH_x86_64 = $(wildcard *-x86_64.*)
-ARCH_i686   = $(subst -x86_64,,$(ARCH_x86_64))
+ARCH_x86_64 = $(wildcard *-x86_64.*) $(wildcard *-x64.*)
+
+ARCH_i686   = $(subst -x64,, $(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *-i586.*) $(wildcard *-i686.*)
 
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
