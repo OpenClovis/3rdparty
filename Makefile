@@ -6,6 +6,12 @@ else
     version := $(_VERSION)
 endif
 
+ifndef _REVISION
+    revision := 0
+else 
+    revision := $(_REVISION)
+endif
+
 ifndef _ARCH
     ARCH := $(shell arch)
 endif
@@ -24,12 +30,12 @@ ARCH_i686   = $(subst -x64,, $(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *-i586
 
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
-    tarname = 3rdparty-base-$(version)-$(ARCH).tar
-    md5name = 3rdparty-base-$(version)-$(ARCH).md5
+    tarname = 3rdparty-base-$(version).$(revision)-$(ARCH).tar
+    md5name = 3rdparty-base-$(version).$(revision)-$(ARCH).md5
     DEPS        = $(filter-out $(ARCH_i686), $(ALLPKGS))
 else
-    tarname = 3rdparty-base-$(version).tar
-    md5name = 3rdparty-base-$(version).md5
+    tarname = 3rdparty-base-$(version).$(revision).tar
+    md5name = 3rdparty-base-$(version).$(revision).md5
     DEPS        = $(filter-out $(ARCH_x86_64), $(ALLPKGS))
 endif
 
@@ -42,4 +48,8 @@ $(md5name): $(tarname)
 	md5sum $< > $@
 
 clean: 
+ifndef _VERSION   
 	rm -rf  $(tarname) $(md5name)
+else
+	rm -rf  *-$(version)*.tar rm -rf *-$(version)*.md5
+endif
