@@ -48,5 +48,10 @@ $(tarname): $(DEPS)
 $(md5name): $(tarname)
 	md5sum $< > $@
 
-clean: 
-	rm -rf  3rdparty-base-*.tar rm -rf 3rdparty-base-*.md5
+clean:
+	@echo "to clean the particular version use _VERSION=<version>" 
+ifndef _VERSION   
+	rm -rf  $(tarname) $(md5name)
+else
+	rm -rf  *-$(version)*.tar rm -rf *-$(version)*.md5
+endif
