@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 ifndef _VERSION
-    version := 1.25
+    version := 6.1
 else
     version := $(_VERSION)
 endif
@@ -28,14 +28,15 @@ ARCH_x86_64 = $(wildcard *-x86_64.*) $(wildcard *-x64.*)
 
 ARCH_i686   = $(subst -x64,, $(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *-i586.*) $(wildcard *-i686.*)
 
+PACKAGE_START = 3rdparty-base-$(version).$(revision)
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
-    tarname = 3rdparty-base-$(version).$(revision)-$(ARCH).tar
-    md5name = 3rdparty-base-$(version).$(revision)-$(ARCH).md5
+    tarname = $(PACKAGE_START)-$(ARCH).tar
+    md5name = $(PACKAGE_START)-$(ARCH).md5
     DEPS        = $(filter-out $(ARCH_i686), $(ALLPKGS))
 else
-    tarname = 3rdparty-base-$(version).$(revision).tar
-    md5name = 3rdparty-base-$(version).$(revision).md5
+    tarname = $(PACKAGE_START).tar
+    md5name = $(PACKAGE_START).md5
     DEPS        = $(filter-out $(ARCH_x86_64), $(ALLPKGS))
 endif
 
