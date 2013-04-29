@@ -48,8 +48,4 @@ $(md5name): $(tarname)
 	md5sum $< > $@
 
 clean: 
-ifndef _VERSION   
-	rm -rf  $(tarname) $(md5name)
-else
-	rm -rf  *-$(version)*.tar rm -rf *-$(version)*.md5
-endif
+	rm -rf  3rdparty-base-*.tar rm -rf 3rdparty-base-*.md5
