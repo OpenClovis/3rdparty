@@ -23,12 +23,13 @@ ARCH_i686   = $(subst -x64,, $(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *-i586
 PACKAGE_START = 3rdparty-base-$(VERSION)
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
-    tarname = $(PACKAGE_START)-$(ARCH).tar
-    md5name = $(PACKAGE_START)-$(ARCH).md5
+    tarname = $(PACKAGE_START).$(ARCH).tar
+    md5name = $(PACKAGE_START).$(ARCH).md5
     DEPS        = $(filter-out $(ARCH_i686), $(ALLPKGS))
 else
-    tarname = $(PACKAGE_START).tar
-    md5name = $(PACKAGE_START).md5
+	ARCH := x86_32
+    tarname = $(PACKAGE_START).$(ARCH).tar
+    md5name = $(PACKAGE_START).$(ARCH).md5
     DEPS        = $(filter-out $(ARCH_x86_64), $(ALLPKGS))
 endif
 
