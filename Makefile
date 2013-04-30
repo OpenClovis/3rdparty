@@ -1,16 +1,8 @@
 .SUFFIXES:
 
-ifndef _VERSION
-    version := 6.1
-else
-    version := $(_VERSION)
-endif
-
-ifndef _REVISION
-    revision := 0
-else 
-    revision := $(_REVISION)
-endif
+# Change this variable or override on the command line to set the 3rdparty package version.
+# First 2 numbers correspond to SAFplus release, last number is the rev of this package.
+VERSION ?= 6.1.0
 
 ifndef _ARCH
     ARCH := $(shell arch)
@@ -28,7 +20,7 @@ ARCH_x86_64 = $(wildcard *-x86_64.*) $(wildcard *-x64.*)
 
 ARCH_i686   = $(subst -x64,, $(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *-i586.*) $(wildcard *-i686.*)
 
-PACKAGE_START = 3rdparty-base-$(version).$(revision)
+PACKAGE_START = 3rdparty-base-$(VERSION)
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
     tarname = $(PACKAGE_START)-$(ARCH).tar
@@ -49,9 +41,4 @@ $(md5name): $(tarname)
 	md5sum $< > $@
 
 clean:
-	@echo "to clean the particular version use _VERSION=<version>" 
-ifndef _VERSION   
-	rm -rf  $(tarname) $(md5name)
-else
-	rm -rf  *-$(version)*.tar rm -rf *-$(version)*.md5
-endif
+	rm -rf  3rdparty-base-$(version)*.tar rm -rf 3rdparty-base-$(version)*.md5
