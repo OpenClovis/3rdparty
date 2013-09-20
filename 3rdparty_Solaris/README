@@ -1,0 +1,13 @@
+This directory contains the 3rd party packages neccessary for Openclovis 6.1 installation on Solaris 11 and a Makefile to generate the 3rd party tarball.
+Some of the other neccessary files are already present outside this directory
+
+Steps to create the 3rd Party tarball:
+1. Take the necessary 3rd party packages(if applicable) viz. gcc,glib,net-snmp              
+2. Don't take the packages 
+             openhpi 
+             openhpi-subagent
+             glibc
+             glibc-linuxthreads
+             jre-1.7.0
+
+3. Generate the tarball by running gmake.
