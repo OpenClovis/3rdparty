@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 ifndef _VERSION
-    version := 1.26
+    version := 1.27
 else
     version := $(_VERSION)
 endif
@@ -12,8 +12,11 @@ endif
 
 ALLPKGS = $(sort $(wildcard *.zip) $(wildcard *.tgz) $(wildcard *.tar.gz) $(wildcard *.gz))
 
-ARCH_x86_64 = $(wildcard *-x86_64.*)
-ARCH_i686   = $(subst -x86_64,,$(ARCH_x86_64))
+ARCH_x86_64 = $(wildcard *-x86_64.*) $(wildcard *x64.*)
+ARCH_i686   = $(subst -x64,,$(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *i586.*) $(wildcard *i686.*)
+
+$(warning ARCH_x86_64=$(ARCH_x86_64))
+$(warning ARCH_i686=$(ARCH_i686))
 
 ifeq ("64", "$(_ARCH)")
     ARCH := x86_64
