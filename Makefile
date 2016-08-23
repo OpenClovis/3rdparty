@@ -2,7 +2,7 @@
 
 # Change this variable or override on the command line to set the 3rdparty package version.
 # First 2 numbers correspond to SAFplus release, last number is the rev of this package.
-VERSION ?= 6.1.2
+VERSION ?= 6.1.3
 
 ifndef _ARCH
     ARCH := $(shell arch)
