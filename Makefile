@@ -7,9 +7,9 @@ else
 endif
 
 ifndef _ARCH
-    ARCH := $(shell arch)
+    _ARCH := $(shell arch)
 endif
-
+ARCH=$(_ARCH)
 ALLPKGS = $(sort $(wildcard *.zip) $(wildcard *.tgz) $(wildcard *.tar.gz) $(wildcard *.gz))
 
 ARCH_x86_64 = $(wildcard *-x86_64.*) $(wildcard *x64.*)
@@ -18,7 +18,7 @@ ARCH_i686   = $(subst -x64,,$(subst -x86_64,,$(ARCH_x86_64))) $(wildcard *i586.*
 $(warning ARCH_x86_64=$(ARCH_x86_64))
 $(warning ARCH_i686=$(ARCH_i686))
 
-ifeq ("64", "$(_ARCH)")
+ifeq ("x86_64", "$(_ARCH)")
     ARCH := x86_64
     tarname = 3rdparty-base-$(version)-$(ARCH).tar
     md5name = 3rdparty-base-$(version)-$(ARCH).md5
