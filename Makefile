@@ -1,7 +1,7 @@
 .SUFFIXES:
 
 ifndef _VERSION
-    version := 1.30
+    version := 6.1.0
 else
     version := $(_VERSION)
 endif
